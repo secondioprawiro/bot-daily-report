@@ -103,6 +103,86 @@ LOGBOOK_PAIRS = [
             "untuk menghambat pekerjaan pengguna di lingkungan rumah sakit."
         ),
     },
+    {
+        "activity": (
+            "Melakukan perawatan dan pembersihan fisik pada perangkat keras seperti printer, scanner, "
+            "serta CPU di unit layanan medis. Kegiatan meliputi pembersihan debu, pengecekan kabel "
+            "konektor, dan refilling tinta printer agar siap digunakan untuk cetak dokumen medis."
+        ),
+        "lesson": (
+            "Memahami pentingnya perawatan fisik perangkat periferal rumah sakit guna mencegah kerusakan "
+            "akibat penumpukan debu dan masalah teknis sederhana, serta memastikan ketersediaan perangkat "
+            "pendukung administrasi pasien tetap optimal."
+        ),
+        "obstacle": (
+            "Tidak mengalami kendala dalam proses pembersihan dan perawatan fisik perangkat. Semua unit "
+            "dapat dibersihkan dan dicek fungsinya dengan baik tanpa mengganggu aktivitas pelayanan rumah sakit."
+        ),
+    },
+    {
+        "activity": (
+            "Membantu penanganan dan penataan manajemen kabel (cable management) pada ruang server dan "
+            "stasiun kerja staf. Kegiatan meliputi kerapian pengkabelan LAN dan listrik agar terlihat rapi, "
+            "aman, serta mempermudah identifikasi port saat pengecekan."
+        ),
+        "lesson": (
+            "Belajar pentingnya kerapian penataan kabel untuk keamanan operasional dan kemudahan kendali "
+            "jalur koneksi. Manajemen kabel yang terstruktur sangat membantu mempercepat penanganan saat "
+            "terjadi masalah pada port tertentu."
+        ),
+        "obstacle": (
+            "Proses penataan berjalan lancar tanpa kendala teknis. Pengorganisasian kabel dapat diselesaikan "
+            "sesuai dengan standar kerapian ruangan tanpa memutuskan jaringan aktif."
+        ),
+    },
+    {
+        "activity": (
+            "Melakukan pengecekan serta pemutakhiran (update) antivirus dan pemindaian keamanan sistem pada "
+            "komputer staf. Kegiatan dilakukan untuk mencegah potensi ancaman malware, virus, atau "
+            "program berbahaya yang dapat merusak data rumah sakit."
+        ),
+        "lesson": (
+            "Memperoleh pemahaman mendasar mengenai keamanan sistem informasi dan perlindungan endpoint. "
+            "Mengetahui bahwa pemutakhiran basis data antivirus secara berkala sangat krusial untuk "
+            "menjaga privasi dan integritas data medis."
+        ),
+        "obstacle": (
+            "Tidak ada kendala berarti selama proses pemindaian dan update antivirus berlangsung. Seluruh "
+            "perangkat komputer dapat diperbarui dengan lancar tanpa ada infeksi virus yang berdampak fatal."
+        ),
+    },
+    {
+        "activity": (
+            "Melakukan pengecekan fungsi dan performa perangkat Uninterruptible Power Supply (UPS) serta "
+            "stabilizer pada unit perangkat vital. Kegiatan meliputi pengujian indikator baterai dan "
+            "memastikan cadangan listrik berfungsi baik saat terjadi pemadaman mendadak."
+        ),
+        "lesson": (
+            "Memahami pentingnya keandalan sistem daya cadangan bagi kelangsungan operasional IT rumah "
+            "sakit. Mengetahui cara memeriksa indikator kelayakan baterai UPS guna mengantisipasi kerusakan "
+            "perangkat akibat lonjakan voltase atau mati listrik."
+        ),
+        "obstacle": (
+            "Pemeriksaan UPS dan sistem daya berjalan dengan lancar. Seluruh unit penyuplai daya cadangan "
+            "dalam kondisi siap pakai tanpa ada gangguan teknis."
+        ),
+    },
+    {
+        "activity": (
+            "Melakukan inventarisasi dan pendataan aset perangkat IT di lingkungan rumah sakit. "
+            "Kegiatan meliputi pencatatan nomor seri, kondisi kelayakan perangkat, spesifikasi singkat, "
+            "serta lokasi penempatan unit PC maupun printer."
+        ),
+        "lesson": (
+            "Memahami proses dokumentasi dan manajemen aset IT secara sistematis. Pendataan yang akurat "
+            "sangat membantu tim IT dalam memetakan kebutuhan peremajaan atau perbaikan perangkat di "
+            "masa mendatang."
+        ),
+        "obstacle": (
+            "Seluruh proses pendataan dan pendokumentasian aset berjalan tertib dan lancar tanpa ada "
+            "kendala fisik maupun ketidaksesuaian data yang signifikan."
+        ),
+    },
 ]
 
 # Koordinat Rumah Sakit Elim Rantepao (bypass geolocation popup browser)

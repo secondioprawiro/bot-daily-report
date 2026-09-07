@@ -7,3 +7,4 @@ bot_audit.log
 debug_picture  
 venv  
 .env  
+chat_id.txt

@@ -353,28 +353,74 @@ async def run_logbook() -> str:
             # 6. Klik tombol Simpan / Submit
             # ------------------------------------------------------------------
             logger.info("Menekan tombol submit…")
+
+            # Tombol Vuetify adalah <button type="button"> "Simpan dan Kirim".
+            # Button[type='submit'] TIDAK cocok. Prioritas: teks persis dulu,
+            # lalu turunan. Hentikan segera jika halaman sudah keluar dari
+            # view=edit (mis. ter-redirect kembali ke /dashboard).
             submit_selectors = [
-                "button[type='submit']",
+                "button.v-btn:has-text('Simpan dan Kirim')",
+                "button:has-text('Simpan dan Kirim')",
                 "button:has-text('Simpan')",
                 "button:has-text('Kirim')",
-                "button:has-text('Submit')",
             ]
+
             submitted = False
             for sel in submit_selectors:
                 try:
+                    # Cek cepat (2s) apakah elemen benar-benar ada, tanpa
+                    # menunggu timeout 30s default saat halaman sudah keluar.
+                    if await page.locator(sel).count() == 0:
+                        logger.debug("Selector tidak ada di DOM: %s", sel)
+                        continue
                     btn = page.locator(sel).first
-                    await btn.scroll_into_view_if_needed()
-                    if await btn.is_visible(timeout=3000):
-                        await btn.click(force=True)
-                        submitted = True
-                        logger.info("Submit diklik: %s", sel)
-                        break
+                    await btn.scroll_into_view_if_needed(timeout=5000)
+                    if not await btn.is_visible(timeout=2000):
+                        logger.debug("Selector tidak terlihat: %s", sel)
+                        continue
+                    # Abaikan tombol yang masih disabled (validasi form belum selesai).
+                    if await btn.is_disabled():
+                        logger.debug("Tombol masih disabled, lewati: %s", sel)
+                        continue
+                    await btn.click(force=True)
+                    submitted = True
+                    logger.info("Submit diklik: %s", sel)
+                    break
                 except Exception as e:
                     logger.debug("Gagal klik %s: %s", sel, e)
                     continue
 
+            # Fallback: klik langsung via JS (bypass koordinat/animasi Vuetify)
             if not submitted:
-                logger.warning("Tombol submit tidak terdeteksi dengan selector biasa.")
+                js_clicked = await page.evaluate("""() => {
+                    const b = [...document.querySelectorAll('button')]
+                        .find(x => (x.innerText || '').includes('Simpan dan Kirim')
+                                   || (x.innerText || '').includes('Simpan'));
+                    if (b && !b.disabled) { b.click(); return b.innerText.trim(); }
+                    return null;
+                }""")
+                if js_clicked:
+                    submitted = True
+                    logger.info("Submit diklik via JS fallback: %s", js_clicked)
+
+            if not submitted:
+                logger.warning(
+                    "Tombol submit tidak terdeteksi dengan selector biasa. "
+                    "URL saat ini: %s", page.url
+                )
+                # Jika halaman sudah ter-redirect keluar dari form edit,
+                # coba kembali ke halaman edit sekali lagi sebagai fallback.
+                if "view=edit" not in page.url:
+                    logger.info("Url bukan view=edit, coba navigasi ulang ke form edit…")
+                    try:
+                        await page.goto(edit_url, timeout=30_000)
+                        await page.wait_for_load_state("networkidle")
+                        await page.wait_for_selector(
+                            "textarea.v-field__input", timeout=15000
+                        )
+                        logger.info("Form edit dimuat ulang")
+                    except Exception as e:
+                        logger.warning("Gagal navigasi ulang ke form edit: %s", e)
 
             # Tangani modal konfirmasi jika muncul
             try:

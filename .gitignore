@@ -8,3 +8,5 @@ debug_picture
 venv  
 .env  
 chat_id.txt
+probe_diag.py
+probe_out.txt
